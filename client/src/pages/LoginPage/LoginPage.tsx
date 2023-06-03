@@ -1,11 +1,13 @@
 // ==> Libs imports <===
 import { FC } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import Button from "../../components/UI/Button/Button";
 // ==> Components imports <===
-
+import Button from "../../components/UI/Button/Button";
+import { loginUser } from "../../redux/slices/authSlice";
 // ==> Other imports <===
+import { AppDispatch } from "../../redux/store";
 import "./LoginPage.scss";
 
 interface ILoginField {
@@ -21,8 +23,10 @@ const LoginPage: FC = () => {
     formState: { errors },
   } = useForm<ILoginField>();
 
-  const onSubmit: SubmitHandler<ILoginField> = (values) => {
-    console.log(values);
+  const dispatch = useDispatch<AppDispatch>();
+
+  const onSubmit: SubmitHandler<ILoginField> = ({ username, password }) => {
+    dispatch(loginUser({ username, password }));
   };
 
   return (

@@ -1,8 +1,11 @@
 // ==> Libs imports <===
 import { FC } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import Button from "../../components/UI/Button/Button";
+import { registerUser } from "../../redux/slices/authSlice";
+import { AppDispatch } from "../../redux/store";
 // ==> Components imports <===
 
 // ==> Other imports <===
@@ -14,6 +17,7 @@ interface ILoginField {
 }
 
 const RegisterPage: FC = () => {
+  const dispatch = useDispatch<AppDispatch>();
   const {
     register,
     handleSubmit,
@@ -21,8 +25,8 @@ const RegisterPage: FC = () => {
     formState: { errors },
   } = useForm<ILoginField>();
 
-  const onSubmit: SubmitHandler<ILoginField> = (values) => {
-    console.log(values);
+  const onSubmit: SubmitHandler<ILoginField> = ({ username, password }) => {
+    dispatch(registerUser({ username, password }));
   };
 
   return (
