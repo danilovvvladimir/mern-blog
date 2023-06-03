@@ -1,0 +1,31 @@
+@import "../../assets/styles/variables.scss";
+
+.about {
+  padding-top: 100px;
+  &__title {
+    text-align: center;
+    margin-bottom: 35px;
+  }
+  &__text {
+    font-size: 16px;
+    line-height: 18px;
+    color: $text-color;
+    margin: 0 auto;
+    margin-bottom: 25px;
+    padding-bottom: 25px;
+    text-align: center;
+    position: relative;
+    max-width: 850px;
+    &::before {
+      content: "";
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 150px;
+      height: 3px;
+      background-color: $accent-color;
+      margin-bottom: 12px;
+    }
+  }
+}
