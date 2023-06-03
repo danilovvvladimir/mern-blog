@@ -5,7 +5,6 @@ export const checkAuth = (req, res, next) => {
         try {
             // Decoding user
             const decoded = jwt.verify(token, process.env.JWT_SECRET);
-            console.log(decoded);
             //req.userId = decoded.id;
             res.locals.jwt = decoded;
             next();

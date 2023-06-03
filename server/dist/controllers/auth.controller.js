@@ -85,7 +85,7 @@ export const login = (req, res) => __awaiter(void 0, void 0, void 0, function* (
 // Get User
 export const getMe = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const user = yield UserSchema.findById(req.userId).select("-password");
+        const user = yield UserSchema.findById(res.locals.jwt._id).select("-password");
         if (!user) {
             return res.status(404).json({
                 message: "Пользователь не найден",
@@ -97,6 +97,7 @@ export const getMe = (req, res) => __awaiter(void 0, void 0, void 0, function* (
             expiresIn: "30d",
         });
         res.json({ user, token });
+        console.log({ user, token });
     }
     catch (error) {
         console.log(error);

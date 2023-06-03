@@ -1,0 +1,63 @@
+@import "../../assets/styles/variables.scss";
+.post {
+  display: block;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+  margin-bottom: 25px;
+  &__imagebox {
+    height: 200px;
+  }
+  &__image {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
+  &__textbox {
+    padding: 20px 20px;
+  }
+  &__title {
+    color: $text-color;
+    font-size: 30px;
+    line-height: 30px;
+    margin-bottom: 15px;
+  }
+  &__info {
+    display: flex;
+    gap: 30px;
+    &-block {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+  }
+  &__icon {
+    color: $accent-color;
+  }
+  &__tags {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  &__tag {
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+  &__author {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 16px;
+    color: $text-color;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+  &__author-image {
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+  }
+}

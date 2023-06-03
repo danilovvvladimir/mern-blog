@@ -1,0 +1,13 @@
+.home {
+  padding-top: 50px;
+  &__wrapper {
+    display: flex;
+    gap: 40px;
+  }
+  &__aside {
+    max-width: 200px;
+  }
+  &__posts {
+    width: 100%;
+  }
+}
