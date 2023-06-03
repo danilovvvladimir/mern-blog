@@ -1,0 +1,32 @@
+@import "../../assets/styles/variables.scss";
+.header {
+  padding: 20px 0;
+  background-color: #fff;
+}
+.menu {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  &__list {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+  }
+  &__list-item {
+    font-size: 16px;
+    line-height: 18px;
+  }
+  &__list-item-link {
+    &--active {
+      color: $main-color;
+    }
+  }
+}
+
+.logo {
+  font-weight: 700;
+  color: $main-color;
+  padding: 0 10px;
+  border-left: 2px solid $main-color;
+  border-right: 2px solid $main-color;
+}

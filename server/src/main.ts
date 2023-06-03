@@ -1,12 +1,9 @@
 import express from "express";
 import userRouter from "./routes/auth.js";
 
-const app = express();
+const PORT = process.env.PORT;
 
-// app.use((err, res, next) => {
-//   console.log(err);
-//   res.status(401).send(err.message);
-// });
+const app = express();
 
 app.use("/auth", userRouter);
 
@@ -16,6 +13,6 @@ app.get("/", (req, res) => {
   res.write("homeee");
 });
 
-app.listen(7777, () => {
-  console.log("Server is listening at port 7777");
+app.listen(PORT, () => {
+  console.log(`Server is listening at port ${PORT}`);
 });
