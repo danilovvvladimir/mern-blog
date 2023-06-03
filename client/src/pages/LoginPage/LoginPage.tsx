@@ -1,19 +1,18 @@
 // ==> Libs imports <===
 import { FC } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, Navigate } from "react-router-dom";
+import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
+
 // ==> Components imports <===
 import Button from "../../components/UI/Button/Button";
-import { loginUser } from "../../redux/slices/authSlice";
-// ==> Other imports <===
-import { AppDispatch } from "../../redux/store";
-import "./LoginPage.scss";
 
-interface ILoginField {
-  username: string;
-  password: string;
-}
+// ==> Other imports <===
+import { checkIsAuth, loginUser } from "../../redux/slices/authSlice";
+import { AppDispatch } from "../../redux/store";
+import { ILoginField } from "../../types/authTypes";
+import "./LoginPage.scss";
 
 const LoginPage: FC = () => {
   const {
@@ -23,11 +22,29 @@ const LoginPage: FC = () => {
     formState: { errors },
   } = useForm<ILoginField>();
 
+  const isAuth = useSelector(checkIsAuth);
+
   const dispatch = useDispatch<AppDispatch>();
 
-  const onSubmit: SubmitHandler<ILoginField> = ({ username, password }) => {
-    dispatch(loginUser({ username, password }));
+  const onSubmit: SubmitHandler<ILoginField> = async ({ username, password }) => {
+    const result = await dispatch(loginUser({ username, password }));
+
+    if (loginUser.fulfilled.match(result)) {
+      const data = result.payload;
+      if ("token" in data) {
+        window.localStorage.setItem("token", data.token);
+      }
+      // Добавить в toastify success
+    } else {
+      // Добавить в toastify
+      return console.log("Ошибка при авторизации:", result.payload);
+    }
+    reset();
   };
+
+  if (isAuth) {
+    return <Navigate to="/" />;
+  }
 
   return (
     <section className="login">
@@ -39,17 +56,24 @@ const LoginPage: FC = () => {
               <div className="login__form-label-message">Username:</div>
               <input
                 className="login__form-input"
-                {...register("username", { required: true })}
+                {...register("username", {
+                  required: { value: true, message: "Введите username" },
+                })}
                 placeholder="Введите username..."
               />
+              {errors.username?.message && <ErrorMessage>{errors.username?.message}</ErrorMessage>}
             </label>
             <label className="login__form-label">
               <div className="login__form-label-message">Password:</div>
               <input
                 className="login__form-input"
-                {...register("password", { required: true })}
+                type="password"
+                {...register("password", {
+                  required: { value: true, message: "Введите пароль" },
+                })}
                 placeholder="Введите пароль..."
               />
+              {errors.password?.message && <ErrorMessage>{errors.password?.message}</ErrorMessage>}
             </label>
           </div>
           <div className="login__form-buttons">

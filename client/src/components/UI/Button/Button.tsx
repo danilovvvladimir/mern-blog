@@ -9,11 +9,15 @@ interface ButtonProps {
   children: ReactNode;
   extraClassName?: string;
   isSubmit?: boolean;
+  onClick?: () => void;
 }
 
-const Button: FC<ButtonProps> = ({ children, extraClassName, isSubmit }) => {
+const Button: FC<ButtonProps> = ({ children, extraClassName, isSubmit, onClick }) => {
   return (
-    <button type={isSubmit ? "submit" : "button"} className={`button ${extraClassName ? extraClassName : ""}`}>
+    <button
+      type={isSubmit ? "submit" : "button"}
+      onClick={onClick}
+      className={`button ${extraClassName ? extraClassName : ""}`}>
       {children}
     </button>
   );

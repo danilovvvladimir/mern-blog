@@ -101,6 +101,7 @@ export const login = async (req: Request, res: Response) => {
 export const getMe = async (req: Request, res: Response) => {
   try {
     const user = await UserSchema.findById(res.locals.jwt._id).select("-password");
+    
     if (!user) {
       return res.status(404).json({
         message: "Пользователь не найден",
@@ -118,6 +119,8 @@ export const getMe = async (req: Request, res: Response) => {
     );
 
     res.json({ user, token });
+    console.log({user, token});
+    
   } catch (error) {
     console.log(error);
     res.status(500).json({

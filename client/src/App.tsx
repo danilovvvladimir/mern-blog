@@ -2,6 +2,7 @@
 import React from "react";
 import { FC } from "react";
 import { Route, Routes } from "react-router-dom";
+import { useDispatch } from "react-redux";
 // ==> Components imports <===
 import HomePage from "./pages/HomePage/HomePage";
 import Layout from "./components/Layout/Layout";
@@ -12,8 +13,16 @@ import LoginPage from "./pages/LoginPage/LoginPage";
 import RegisterPage from "./pages/RegisterPage/RegisterPage";
 
 // ==> Other imports <===
+import { getMe } from "./redux/slices/authSlice";
+import { AppDispatch } from "./redux/store";
 
 const App: FC = () => {
+  const dispatch = useDispatch<AppDispatch>();
+
+  React.useEffect(() => {
+    dispatch(getMe());
+  }, []);
+
   return (
     <Routes>
       <Route path="/" element={<Layout />}>

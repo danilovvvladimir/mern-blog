@@ -1,6 +1,8 @@
 // ==> Libs imports <===
 import { FC } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
+import { checkIsAuth, logout } from "../../redux/slices/authSlice";
 // ==> Components imports <===
 import Button from "../UI/Button/Button";
 
@@ -12,10 +14,16 @@ type ActiveProps = {
 };
 
 const Menu: FC = () => {
-  const isAuth = false;
+  const isAuth = useSelector(checkIsAuth);
+  const dispatch = useDispatch();
 
   const setActive = ({ isActive }: ActiveProps): string => {
     return isActive ? "menu__list-item-link menu__list-item-link--active" : "menu__list-item-link";
+  };
+
+  const handleLogout = () => {
+    dispatch(logout());
+    window.localStorage.removeItem("token");
   };
 
   return (
@@ -25,29 +33,36 @@ const Menu: FC = () => {
           <Link to="/" className="logo">
             BLOG
           </Link>
-            <nav className="menu">
-              <ul className="menu__list">
+          <nav className="menu">
+            <ul className="menu__list">
+              <li className="menu__list-item">
+                <NavLink to="/" className={setActive}>
+                  Главная
+                </NavLink>
+              </li>
+              {isAuth && (
                 <li className="menu__list-item">
-                  <NavLink to="/" className={setActive}>
-                    Главная
-                  </NavLink>
-                </li>
-                {isAuth && <li className="menu__list-item">
                   <NavLink to="/profile" className={setActive}>
                     Мой профиль
                   </NavLink>
-                </li>}
-                
-                <li className="menu__list-item">
-                  <NavLink to="/about" className={setActive}>
-                    Про нас
-                  </NavLink>
                 </li>
-              </ul>
-            </nav>
-          
+              )}
 
-          <Link to="/auth/login" className="menu__login-button" >{isAuth ? "Выйти" : "Войти"}</Link>
+              <li className="menu__list-item">
+                <NavLink to="/about" className={setActive}>
+                  Про нас
+                </NavLink>
+              </li>
+            </ul>
+          </nav>
+
+          {isAuth ? (
+            <Button onClick={handleLogout}>Выйти</Button>
+          ) : (
+            <Link to="/auth/login" className="menu__login-button">
+              Войти
+            </Link>
+          )}
         </div>
       </div>
     </header>
