@@ -8,11 +8,12 @@ import "./Button.scss";
 interface ButtonProps {
   children: ReactNode;
   extraClassName?: string;
+  isSubmit?: boolean;
 }
 
-const Button: FC<ButtonProps> = ({ children, extraClassName }) => {
+const Button: FC<ButtonProps> = ({ children, extraClassName, isSubmit }) => {
   return (
-    <button className={`button ${extraClassName ? extraClassName : ""}`}>
+    <button type={isSubmit ? "submit" : "button"} className={`button ${extraClassName ? extraClassName : ""}`}>
       {children}
     </button>
   );

@@ -12,11 +12,9 @@ type ActiveProps = {
 };
 
 const Menu: FC = () => {
-  const isAuth = true;
+  const isAuth = false;
 
   const setActive = ({ isActive }: ActiveProps): string => {
-    console.log(isActive);
-
     return isActive ? "menu__list-item-link menu__list-item-link--active" : "menu__list-item-link";
   };
 
@@ -27,7 +25,6 @@ const Menu: FC = () => {
           <Link to="/" className="logo">
             BLOG
           </Link>
-          {isAuth && (
             <nav className="menu">
               <ul className="menu__list">
                 <li className="menu__list-item">
@@ -35,11 +32,12 @@ const Menu: FC = () => {
                     Главная
                   </NavLink>
                 </li>
-                <li className="menu__list-item">
+                {isAuth && <li className="menu__list-item">
                   <NavLink to="/profile" className={setActive}>
                     Мой профиль
                   </NavLink>
-                </li>
+                </li>}
+                
                 <li className="menu__list-item">
                   <NavLink to="/about" className={setActive}>
                     Про нас
@@ -47,9 +45,9 @@ const Menu: FC = () => {
                 </li>
               </ul>
             </nav>
-          )}
+          
 
-          <Button extraClassName="menu__button">{isAuth ? "Выйти" : "Войти"}</Button>
+          <Link to="/auth/login" className="menu__login-button" >{isAuth ? "Выйти" : "Войти"}</Link>
         </div>
       </div>
     </header>

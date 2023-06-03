@@ -1,0 +1,54 @@
+@import "../../assets/styles/variables.scss";
+
+.login {
+  padding-top: 50px;
+  &__title {
+    text-align: center;
+    margin-bottom: 50px;
+    font-size: 50px;
+  }
+  &__form {
+    padding: 40px;
+    border-radius: 10px;
+    max-width: 500px;
+    margin: 0 auto;
+    background-color: $main-color;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+  &__form-input {
+    width: 100%;
+    padding: 10px 15px;
+    border-radius: 5px;
+    margin-bottom: 25px;
+    border: none;
+  }
+  &__form-label {
+    width: 100%;
+  }
+  &__form-label-message {
+    color: #fff;
+    margin-bottom: 10px;
+  }
+  &__form-info {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  &__form-buttons {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+  }
+  &__form-button {
+    padding: 10px 60px;
+    background-color: $accent-color;
+    &:hover {
+      background-color: $accent-hover-color;
+    }
+  }
+  &__form-register-link {
+    color: #fff;
+    text-decoration: underline;
+  }
+}
