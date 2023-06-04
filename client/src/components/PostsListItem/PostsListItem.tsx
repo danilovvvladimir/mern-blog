@@ -12,35 +12,44 @@ interface PostsListItemProps {
   title: string;
   imageURL: string;
   views: number;
-  comments: number;
+  comments?: number;
+  tags?: string[];
+  username: string;
+  userID: string;
+  postID: string;
 }
 
-const PostsListItem: FC<PostsListItemProps> = ({ comments, imageURL, title, views }) => {
+const PostsListItem: FC<PostsListItemProps> = ({
+  comments = 0,
+  imageURL,
+  title,
+  views,
+  tags,
+  username,
+  userID,
+  postID,
+}) => {
   return (
     <div className="post">
       <div className="post__imagebox">
         <img src={imageURL} alt="postimage" className="post__image" />
       </div>
       <div className="post__textbox">
-        <Link to="/about" className="post__author">
+        <Link to={`/profile/${userID}`} className="post__author">
           <img src={imageURL} alt="authorIMG" className="post__author-image" />
-          Vladimir Danilov
+          {username}
         </Link>
 
-        <Link to="/about">
+        <Link to={`/posts/${postID}`}>
           <h3 className="title post__title">{title}</h3>
         </Link>
 
         <div className="post__tags">
-          <Link to="/">
-            <div className="post__tag">#universe</div>
-          </Link>
-          <Link to="/">
-            <div className="post__tag">#space</div>
-          </Link>
-          <Link to="/">
-            <div className="post__tag">#physics</div>
-          </Link>
+          {tags?.map((tag) => (
+            <Link to="/" key={tag}>
+              <div className="post__tag">#{tag}</div>
+            </Link>
+          ))}
         </div>
         <div className="post__info">
           <div className="post__info-block">

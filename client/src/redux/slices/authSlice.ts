@@ -59,7 +59,7 @@ export const getMe = createAsyncThunk("posts/getMe", async (params, { rejectWith
     return data;
   } catch (error) {
     const err = error as Error;
-    console.log(err);
+    console.log("getMe error:", err);
     return rejectWithValue(err.message);
   }
 });
