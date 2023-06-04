@@ -52,6 +52,8 @@ export const createPost = async (req: Request, res: Response) => {
 // Get 5 tags
 
 export const getLastTags = async (req: Request, res: Response) => {
+  console.log("request for tags");
+
   try {
     const posts = await PostSchema.find().limit(5).exec();
 
@@ -71,6 +73,7 @@ export const getLastTags = async (req: Request, res: Response) => {
 };
 
 export const getOnePost = async (req: Request, res: Response) => {
+  console.log("get one post");
   try {
     const postId = req.params.id;
 
@@ -124,6 +127,8 @@ export const getAllPosts = async (req: Request, res: Response) => {
 };
 
 export const removePost = async (req: Request, res: Response) => {
+  console.log("remove");
+
   try {
     const postId = req.params.id;
 
@@ -167,6 +172,8 @@ export const removePost = async (req: Request, res: Response) => {
 };
 
 export const updatePost = async (req: Request, res: Response) => {
+  console.log("updatepost");
+
   try {
     const postId = req.params.id;
 

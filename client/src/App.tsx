@@ -12,6 +12,7 @@ import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import AboutPage from "./pages/AboutPage/AboutPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import RegisterPage from "./pages/RegisterPage/RegisterPage";
+import FullPostPage from "./pages/FullPostPage/FullPostPage";
 
 // ==> Other imports <===
 import { getMe } from "./redux/slices/authSlice";
@@ -31,6 +32,7 @@ const App: FC = () => {
         <Route path="/" element={<Layout />}>
           <Route index element={<HomePage />} />
           <Route path="/profile/:id" element={<ProfilePage />} />
+          <Route path="/posts/:id" element={<FullPostPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/auth/login" element={<LoginPage />} />
           <Route path="/auth/register" element={<RegisterPage />} />

@@ -1,6 +1,8 @@
 // ==> Libs imports <===
 import { FC } from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { RootState } from "../../redux/store";
 // ==> Components imports <===
 import Button from "../UI/Button/Button";
 
@@ -8,26 +10,19 @@ import Button from "../UI/Button/Button";
 import "./AsideFilter.scss";
 
 const AsideFilter: FC = () => {
+  const { items, status } = useSelector((state: RootState) => state.posts.tags);
   return (
     <div className="aside-filter">
       <div className="aside-filter__tags">
+        <h3 className="title aside-filter__title">Популярные тэги:</h3>
         <ul className="aside-filter__tags-list">
-          <h3 className="title aside-filter__title">Популярные тэги:</h3>
-          <li className="aside-filter__tags-list-item">
-            <Button extraClassName="aside-filter__button">
-              <h4 className="aside-filter__tag-title">#hello</h4>
-            </Button>
-          </li>
-          <li className="aside-filter__tags-list-item">
-            <Button extraClassName="aside-filter__button">
-              <h4 className="aside-filter__tag-title">#hello</h4>
-            </Button>
-          </li>
-          <li className="aside-filter__tags-list-item">
-            <Button extraClassName="aside-filter__button">
-              <h4 className="aside-filter__tag-title">#hello</h4>
-            </Button>
-          </li>
+          {items.map((tag) => (
+            <li className="aside-filter__tags-list-item">
+              <Button extraClassName="aside-filter__button">
+                <h4 className="aside-filter__tag-title">#{tag}</h4>
+              </Button>
+            </li>
+          ))}
         </ul>
       </div>
       <div className="aside-filter__search">

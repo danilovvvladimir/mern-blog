@@ -32,7 +32,9 @@ const PostsListItem: FC<PostsListItemProps> = ({
   return (
     <div className="post">
       <div className="post__imagebox">
-        <img src={imageURL} alt="postimage" className="post__image" />
+        <Link to={`/posts/${postID}`}>
+          <img src={imageURL} alt="postimage" className="post__image" />
+        </Link>
       </div>
       <div className="post__textbox">
         <Link to={`/profile/${userID}`} className="post__author">

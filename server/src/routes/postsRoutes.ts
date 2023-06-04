@@ -35,6 +35,9 @@ postsRouter.post("/upload", checkAuth, upload.single("image"), (req: Request, re
 // Create Post
 postsRouter.post("/", checkAuth, createPost);
 
+// Get Tags
+postsRouter.get("/tags", getLastTags);
+
 // Get One Post
 postsRouter.get("/:id", getOnePost);
 
@@ -43,9 +46,6 @@ postsRouter.delete("/:id", checkAuth, removePost);
 
 // Update One post
 postsRouter.patch("/:id", checkAuth, updatePost);
-
-// Get Tags
-postsRouter.get("/tags", getLastTags);
 
 // Get All Posts
 postsRouter.get("/", getAllPosts);

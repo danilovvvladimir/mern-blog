@@ -8,6 +8,11 @@ export const fetchPosts = createAsyncThunk("posts/fetchPosts", async () => {
   return data;
 });
 
+export const fetchLatestTags = createAsyncThunk("posts/fetchLatestTags", async () => {
+  const { data } = await axios.get("/posts/tags");
+  return data;
+});
+
 interface IPost {
   _id: string;
   createdAt: string;
@@ -60,6 +65,20 @@ const postsSlice = createSlice({
     builder.addCase(fetchPosts.rejected, (state) => {
       state.posts.status = authFetchStatus.FAILURE;
       state.posts.items = [];
+    });
+    builder.addCase(fetchLatestTags.pending, (state) => {
+      state.tags.status = authFetchStatus.LOADING;
+      state.tags.items = [];
+    });
+
+    builder.addCase(fetchLatestTags.fulfilled, (state, action) => {
+      state.tags.status = authFetchStatus.SUCCESS;
+      state.tags.items = action.payload;
+    });
+
+    builder.addCase(fetchLatestTags.rejected, (state) => {
+      state.tags.status = authFetchStatus.FAILURE;
+      state.tags.items = [];
     });
   },
 });
