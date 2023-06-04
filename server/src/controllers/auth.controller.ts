@@ -5,10 +5,6 @@ import { Response, Request } from "express";
 import UserSchema from "../models/userModel.js";
 import mongoose from "mongoose";
 
-interface RequestUserIdExtended extends Request {
-  userId: string;
-}
-
 // Register user
 export const register = async (req: Request, res: Response) => {
   try {

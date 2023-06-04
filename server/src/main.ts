@@ -1,8 +1,10 @@
 import express from "express";
 import mongoose from "mongoose";
-import userRouter from "./routes/authRoutes.js";
 import dotenv from "dotenv";
 import cors from "cors";
+
+import userRouter from "./routes/authRoutes.js";
+import postsRouter from "./routes/postsRoutes.js";
 
 dotenv.config();
 
@@ -31,9 +33,11 @@ const app = express();
 // Middlewares
 app.use(express.json());
 app.use(cors());
+app.use("/uploads", express.static("uploads"));
 
 // Routes
 app.use("/auth", userRouter);
+app.use("/posts", postsRouter);
 
 app.get("/", (req, res) => {
   return res.json({ success: true });

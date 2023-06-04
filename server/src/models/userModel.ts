@@ -3,10 +3,8 @@ import mongoose from "mongoose";
 export interface IUser extends mongoose.Document {
   username: string;
   password: string;
-  //posts: PostDocument["_id"][];
+  posts: mongoose.Schema.Types.ObjectId[];
 }
-
-//export interface UserModel extends mongoose.Model<IUser> {}
 
 const UserSchema: mongoose.Schema = new mongoose.Schema(
   {
@@ -19,12 +17,12 @@ const UserSchema: mongoose.Schema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    // posts: [
-    //   {
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref: "Post",
-    //   },
-    // ],
+    posts: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Post",
+      },
+    ],
   },
   {
     timestamps: true,
