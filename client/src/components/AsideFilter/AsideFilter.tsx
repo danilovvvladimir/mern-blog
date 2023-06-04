@@ -17,7 +17,7 @@ const AsideFilter: FC = () => {
         <h3 className="title aside-filter__title">Популярные тэги:</h3>
         <ul className="aside-filter__tags-list">
           {items.map((tag) => (
-            <li className="aside-filter__tags-list-item">
+            <li className="aside-filter__tags-list-item" key={tag}>
               <Button extraClassName="aside-filter__button">
                 <h4 className="aside-filter__tag-title">#{tag}</h4>
               </Button>
@@ -29,7 +29,7 @@ const AsideFilter: FC = () => {
         <input type="text" className="aside-filter__search-input" placeholder="Поиск..." />
       </div>
       <div className="aside-filter__linkbox">
-        <Link to="/about" className="aside-filter__link">
+        <Link to="/add-post" className="aside-filter__link">
           Создать пост
         </Link>
       </div>

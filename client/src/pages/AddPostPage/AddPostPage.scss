@@ -1,0 +1,44 @@
+@import "../../assets/styles/variables.scss";
+
+.add-post {
+  padding-top: 50px;
+  &__title {
+    text-align: center;
+    font-size: 50px;
+    margin-bottom: 25px;
+  }
+  &__form {
+    border-radius: 10px;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+    display: flex;
+    flex-direction: column;
+  }
+  &__form-label {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  &__form-input,
+  &__form-textarea {
+    border-radius: 10px;
+    width: 100%;
+    border: 1px solid $main-color;
+    padding: 10px 15px;
+  }
+  &__form-textarea {
+    resize: none;
+    height: 300px;
+  }
+  &__form-label-title {
+    font-weight: 500;
+    color: $text-color;
+    margin-bottom: 5px;
+  }
+  &__button {
+    background-color: $accent-color;
+    &:hover {
+      background-color: $accent-hover-color;
+    }
+  }
+}

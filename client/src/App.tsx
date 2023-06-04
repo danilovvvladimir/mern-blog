@@ -18,6 +18,7 @@ import FullPostPage from "./pages/FullPostPage/FullPostPage";
 import { getMe } from "./redux/slices/authSlice";
 import { AppDispatch } from "./redux/store";
 import "react-toastify/dist/ReactToastify.css";
+import AddPostPage from "./pages/AddPostPage/AddPostPage";
 
 const App: FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -34,6 +35,7 @@ const App: FC = () => {
           <Route path="/profile/:id" element={<ProfilePage />} />
           <Route path="/posts/:id" element={<FullPostPage />} />
           <Route path="/about" element={<AboutPage />} />
+          <Route path="/add-post" element={<AddPostPage />} />
           <Route path="/auth/login" element={<LoginPage />} />
           <Route path="/auth/register" element={<RegisterPage />} />
           <Route path="*" element={<NotFoundPage />} />
