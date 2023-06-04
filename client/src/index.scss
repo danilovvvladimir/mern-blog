@@ -11,6 +11,9 @@ body {
 
 html {
   box-sizing: border-box;
+  // overflow-x: hidden;
+  // overflow-y: scroll;
+  padding-left: calc(100vw - 100%);
 }
 
 *,

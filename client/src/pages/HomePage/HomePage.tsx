@@ -1,5 +1,6 @@
 // ==> Libs imports <===
 import { FC } from "react";
+import AsideFilter from "../../components/AsideFilter/AsideFilter";
 import PostsList from "../../components/PostsList/PostsList";
 // ==> Components imports <===
 
@@ -12,25 +13,7 @@ const HomePage: FC = () => {
       <div className="container">
         <div className="home__wrapper">
           <PostsList />
-          <div className="home__aside">
-            <ul>
-              <li>
-                <h4 className="title">hello</h4>
-              </li>
-              <li>
-                <h4 className="title">hello</h4>
-              </li>
-              <li>
-                <h4 className="title">hello</h4>
-              </li>
-              <li>
-                <h4 className="title">hello</h4>
-              </li>
-              <li>
-                <h4 className="title">hello</h4>
-              </li>
-            </ul>
-          </div>
+          <AsideFilter />
         </div>
       </div>
     </div>
