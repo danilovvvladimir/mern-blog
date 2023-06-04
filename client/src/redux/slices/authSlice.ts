@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { AxiosError } from "axios";
 import { authFetchStatus, ILoginField, ReturnedValues } from "../../types/authTypes";
 import axios from "../../utils/axios";
 import { RootState } from "../store";
@@ -24,11 +25,10 @@ export const registerUser = createAsyncThunk<ReturnedValues, ILoginField>(
         password,
       });
 
-      console.log(data);
-
       return data;
     } catch (error) {
       const err = error as Error;
+
       return rejectWithValue(err.message);
     }
   }
@@ -52,10 +52,9 @@ export const loginUser = createAsyncThunk<ReturnedValues, ILoginField>(
 );
 
 export const getMe = createAsyncThunk("posts/getMe", async (params, { rejectWithValue }) => {
-  console.log("getme");
   try {
     const { data } = await axios.get("/auth/me");
-    console.log(data);
+    console.log("getMe data: ", data);
 
     return data;
   } catch (error) {

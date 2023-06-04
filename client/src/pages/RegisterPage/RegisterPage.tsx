@@ -1,24 +1,18 @@
 // ==> Libs imports <===
-import { PayloadAction } from "@reduxjs/toolkit";
 import { FC } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Navigate } from "react-router-dom";
-import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 // ==> Components imports <===
 import Button from "../../components/UI/Button/Button";
+import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 
 // ==> Other imports <===
 import { checkIsAuth, registerUser } from "../../redux/slices/authSlice";
 import { AppDispatch } from "../../redux/store";
-import { ILoginField, ReturnedValues } from "../../types/authTypes";
+import { ILoginField } from "../../types/authTypes";
+import { createNotify, notifyMode } from "../../utils/createNotify";
 import "./RegisterPage.scss";
-
-interface registerResponse {
-  payload: {
-    token: string;
-  };
-}
 
 const RegisterPage: FC = () => {
   const isAuth = useSelector(checkIsAuth);
@@ -41,9 +35,10 @@ const RegisterPage: FC = () => {
         window.localStorage.setItem("token", data.token);
       }
       // Добавить в toastify success
+      createNotify("Вы успешно зарегистрировались", notifyMode.SUCCESS);
     } else {
       // Добавить в toastify
-      return console.log("Ошибка при регистрации:", result.payload);
+      createNotify("Ошибка при регистрации", notifyMode.ERROR);
     }
     reset();
   };

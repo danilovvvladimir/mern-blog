@@ -12,6 +12,7 @@ import Button from "../../components/UI/Button/Button";
 import { checkIsAuth, loginUser } from "../../redux/slices/authSlice";
 import { AppDispatch } from "../../redux/store";
 import { ILoginField } from "../../types/authTypes";
+import { createNotify, notifyMode } from "../../utils/createNotify";
 import "./LoginPage.scss";
 
 const LoginPage: FC = () => {
@@ -34,10 +35,9 @@ const LoginPage: FC = () => {
       if ("token" in data) {
         window.localStorage.setItem("token", data.token);
       }
-      // Добавить в toastify success
+      createNotify("Вы успешно авторизовались", notifyMode.SUCCESS);
     } else {
-      // Добавить в toastify
-      return console.log("Ошибка при авторизации:", result.payload);
+      createNotify("Ошибка при авторизации", notifyMode.ERROR);
     }
     reset();
   };

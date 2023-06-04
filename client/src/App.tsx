@@ -3,6 +3,7 @@ import React from "react";
 import { FC } from "react";
 import { Route, Routes } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { ToastContainer } from "react-toastify";
 // ==> Components imports <===
 import HomePage from "./pages/HomePage/HomePage";
 import Layout from "./components/Layout/Layout";
@@ -15,6 +16,7 @@ import RegisterPage from "./pages/RegisterPage/RegisterPage";
 // ==> Other imports <===
 import { getMe } from "./redux/slices/authSlice";
 import { AppDispatch } from "./redux/store";
+import "react-toastify/dist/ReactToastify.css";
 
 const App: FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -24,16 +26,19 @@ const App: FC = () => {
   }, []);
 
   return (
-    <Routes>
-      <Route path="/" element={<Layout />}>
-        <Route index element={<HomePage />} />
-        <Route path="/profile/:id" element={<ProfilePage />} />
-        <Route path="/about" element={<AboutPage />} />
-        <Route path="/auth/login" element={<LoginPage />} />
-        <Route path="/auth/register" element={<RegisterPage />} />
-        <Route path="*" element={<NotFoundPage />} />
-      </Route>
-    </Routes>
+    <>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<HomePage />} />
+          <Route path="/profile/:id" element={<ProfilePage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/auth/login" element={<LoginPage />} />
+          <Route path="/auth/register" element={<RegisterPage />} />
+          <Route path="*" element={<NotFoundPage />} />
+        </Route>
+      </Routes>
+      <ToastContainer autoClose={3000} position="bottom-right" pauseOnHover={false} />
+    </>
   );
 };
 
