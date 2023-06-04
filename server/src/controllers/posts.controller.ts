@@ -16,13 +16,14 @@ export const createPost = async (req: Request, res: Response) => {
     const { title, text, imageURL, views, tags } = req.body;
     const user = await UserSchema.findById(res.locals.jwt.id);
     const username = user!.username;
+    const userID = res.locals.jwt.id;
     const doc = new PostSchema({
       title,
       text,
       imageURL,
       views,
       tags,
-      userID: res.locals.jwt.id,
+      userID,
       username,
     });
 
@@ -30,9 +31,16 @@ export const createPost = async (req: Request, res: Response) => {
     console.log(user);
 
     const post = await doc.save();
+
+    await UserSchema.findByIdAndUpdate(
+      userID,
+      // Что будем делать
+      {
+        $push: { posts: post },
+      }
+    );
+
     res.json(post);
-    //user!.posts.push(doc._id);
-    //console.log(post);
   } catch (error) {
     console.log("Create Post error: ", error);
     res.status(500).json({
@@ -119,6 +127,9 @@ export const removePost = async (req: Request, res: Response) => {
   try {
     const postId = req.params.id;
 
+    const post = await PostSchema.findById(postId);
+    const userID = post!.userID;
+
     PostSchema.findOneAndDelete({
       _id: postId,
     })
@@ -139,6 +150,14 @@ export const removePost = async (req: Request, res: Response) => {
           message: "Не удалось удалить статью",
         });
       });
+
+    await UserSchema.findByIdAndUpdate(
+      userID,
+      // Что будем делать
+      {
+        $pull: { posts: postId },
+      }
+    );
   } catch (error) {
     console.log("Remove Post error: ", error);
     res.status(500).json({
@@ -151,6 +170,11 @@ export const updatePost = async (req: Request, res: Response) => {
   try {
     const postId = req.params.id;
 
+    const post = await PostSchema.findById(postId);
+
+    const userID = post!.userID;
+    console.log(userID);
+
     await PostSchema.updateOne(
       {
         _id: postId,
@@ -160,6 +184,14 @@ export const updatePost = async (req: Request, res: Response) => {
         text: req.body.text,
         imageUrl: req.body.imageUrl,
         tags: req.body.tags,
+      }
+    );
+
+    await UserSchema.findByIdAndUpdate(
+      userID,
+      // Что будем делать
+      {
+        $pull: { posts: postId },
       }
     );
 
