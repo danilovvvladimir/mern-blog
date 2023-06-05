@@ -3,6 +3,12 @@ import { authFetchStatus } from "../../types/authTypes";
 
 import axios from "../../utils/axios";
 
+type IRemovePostProp = string;
+
+interface IRemovePostReturn {
+  message: string;
+}
+
 export const fetchPosts = createAsyncThunk("posts/fetchPosts", async () => {
   const { data } = await axios.get("/posts");
   return data;
@@ -12,6 +18,11 @@ export const fetchLatestTags = createAsyncThunk("posts/fetchLatestTags", async (
   const { data } = await axios.get("/posts/tags");
   return data;
 });
+
+export const fetchRemovePost = createAsyncThunk<IRemovePostReturn, IRemovePostProp>(
+  "posts/fetchRemovePost",
+  async (id) => await axios.delete(`/posts/${id}`)
+);
 
 interface IPost {
   _id: string;
@@ -79,6 +90,11 @@ const postsSlice = createSlice({
     builder.addCase(fetchLatestTags.rejected, (state) => {
       state.tags.status = authFetchStatus.FAILURE;
       state.tags.items = [];
+    });
+
+    // Remove post
+    builder.addCase(fetchRemovePost.pending, (state, action) => {
+      state.posts.items = state.posts.items.filter((post) => post._id !== action.meta.arg);
     });
   },
 });

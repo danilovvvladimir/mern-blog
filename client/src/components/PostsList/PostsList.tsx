@@ -11,6 +11,7 @@ import { RootState } from "../../redux/store";
 
 const PostsList: FC = () => {
   const { items, status } = useSelector((state: RootState) => state.posts.posts);
+  const user = useSelector((state: RootState) => state.auth.user);
 
   return (
     <div className="posts home__posts">
@@ -24,6 +25,7 @@ const PostsList: FC = () => {
           userID={item.userID}
           username={item.username}
           postID={item._id}
+          isEditable={user && user._id === item.userID}
         />
       ))}
     </div>

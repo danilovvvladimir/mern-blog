@@ -12,13 +12,10 @@ import "./HomePage.scss";
 
 const HomePage: FC = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const { items, status } = useSelector((state: RootState) => state.posts.tags);
   useEffect(() => {
     dispatch(fetchPosts());
     dispatch(fetchLatestTags());
   }, []);
-
-  console.log({ items, status });
 
   return (
     <div className="home">

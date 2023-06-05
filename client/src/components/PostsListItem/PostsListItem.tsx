@@ -1,12 +1,16 @@
 // ==> Libs imports <===
 import { FC } from "react";
-import { AiOutlineEye } from "react-icons/ai";
+import { AiFillEdit, AiOutlineClose, AiOutlineEye } from "react-icons/ai";
 import { FaComments } from "react-icons/fa";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 // ==> Components imports <===
+import Button from "../UI/Button/Button";
 
 // ==> Other imports <===
+import { AppDispatch } from "../../redux/store";
 import "./PostsListItem.scss";
+import { fetchRemovePost } from "../../redux/slices/postsSlice";
 
 interface PostsListItemProps {
   title: string;
@@ -17,6 +21,7 @@ interface PostsListItemProps {
   username: string;
   userID: string;
   postID: string;
+  isEditable: boolean;
 }
 
 const PostsListItem: FC<PostsListItemProps> = ({
@@ -28,10 +33,30 @@ const PostsListItem: FC<PostsListItemProps> = ({
   username,
   userID,
   postID,
+  isEditable,
 }) => {
+  const dispatch = useDispatch<AppDispatch>();
+
+  const onRemovePost = () => {
+    console.log(postID);
+
+    dispatch(fetchRemovePost(postID));
+  };
+
   return (
     <div className="post">
       <div className="post__imagebox">
+        {isEditable && (
+          <div className="post__editbox">
+            <Link to="/edit-post" className="post__edit-link">
+              <AiFillEdit className="post__edit-icon" />
+            </Link>
+            <Button extraClassName="post__delete-button" onClick={onRemovePost}>
+              <AiOutlineClose />
+            </Button>
+          </div>
+        )}
+
         <Link to={`/posts/${postID}`}>
           <img src={imageURL} alt="postimage" className="post__image" />
         </Link>
