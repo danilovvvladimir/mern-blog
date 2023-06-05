@@ -5,31 +5,10 @@ import { Link, useParams } from "react-router-dom";
 
 // ==> Other imports <===
 import axios from "../../utils/axios";
+import { intitialPostInfo, IPostInfo } from "../../types/postsTypes";
 import "./FullPostPage.scss";
 
 interface FullPostPageProps {}
-
-interface IPostInfo {
-  title: string;
-  imageURL: string;
-  views: number;
-  tags?: string[];
-  username: string;
-  userID: string;
-  postID: string;
-  text: string;
-}
-
-const intitialPostInfo: IPostInfo = {
-  title: "",
-  imageURL: "",
-  views: 0,
-  tags: [],
-  username: "",
-  userID: "",
-  postID: "",
-  text: "",
-};
 
 const FullPostPage: FC<FullPostPageProps> = () => {
   const [postInfo, setPostInfo] = useState<IPostInfo>(intitialPostInfo);

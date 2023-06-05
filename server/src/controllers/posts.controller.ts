@@ -21,9 +21,6 @@ export const createPost = async (req: Request, res: Response) => {
       username,
     });
 
-    console.log(res.locals.jwt.id);
-    console.log(user);
-
     const post = await doc.save();
 
     await UserSchema.findByIdAndUpdate(userID, {

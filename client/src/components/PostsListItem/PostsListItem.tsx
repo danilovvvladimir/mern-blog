@@ -48,7 +48,7 @@ const PostsListItem: FC<PostsListItemProps> = ({
       <div className="post__imagebox">
         {isEditable && (
           <div className="post__editbox">
-            <Link to="/edit-post" className="post__edit-link">
+            <Link to={`/edit-post/${postID}`} className="post__edit-link">
               <AiFillEdit className="post__edit-icon" />
             </Link>
             <Button extraClassName="post__delete-button" onClick={onRemovePost}>

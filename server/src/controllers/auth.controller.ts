@@ -118,7 +118,6 @@ export const getMe = async (req: Request, res: Response) => {
     );
 
     res.json({ user, token });
-    console.log({ user, token });
   } catch (error) {
     const err = error as Error;
     console.log(`getMe error: ${err.message}`);

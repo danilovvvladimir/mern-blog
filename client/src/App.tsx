@@ -14,6 +14,7 @@ import LoginPage from "./pages/LoginPage/LoginPage";
 import RegisterPage from "./pages/RegisterPage/RegisterPage";
 import FullPostPage from "./pages/FullPostPage/FullPostPage";
 import AddPostPage from "./pages/AddPostPage/AddPostPage";
+import EditPostPage from "./pages/EditPostPage/EditPostPage";
 
 // ==> Other imports <===
 import { getMe } from "./redux/slices/authSlice";
@@ -36,6 +37,7 @@ const App: FC = () => {
           <Route path="/posts/:id" element={<FullPostPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/add-post" element={<AddPostPage />} />
+          <Route path="/edit-post/:id" element={<EditPostPage />} />
           <Route path="/auth/login" element={<LoginPage />} />
           <Route path="/auth/register" element={<RegisterPage />} />
           <Route path="*" element={<NotFoundPage />} />

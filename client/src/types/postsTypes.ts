@@ -29,3 +29,25 @@ export interface IPostsSliceState {
     status: authFetchStatus;
   };
 }
+
+export interface IPostInfo {
+  title: string;
+  imageURL: string;
+  views: number;
+  tags?: string[];
+  username: string;
+  userID: string;
+  postID: string;
+  text: string;
+}
+
+export const intitialPostInfo: IPostInfo = {
+  title: "",
+  imageURL: "",
+  views: 0,
+  tags: [],
+  username: "",
+  userID: "",
+  postID: "",
+  text: "",
+};
