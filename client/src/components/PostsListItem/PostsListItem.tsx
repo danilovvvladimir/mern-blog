@@ -22,6 +22,8 @@ interface PostsListItemProps {
   userID: string;
   postID: string;
   isEditable: boolean;
+  createdAt: string;
+  updatedAt: string;
 }
 
 const PostsListItem: FC<PostsListItemProps> = ({
@@ -34,6 +36,8 @@ const PostsListItem: FC<PostsListItemProps> = ({
   userID,
   postID,
   isEditable,
+  createdAt,
+  updatedAt,
 }) => {
   const dispatch = useDispatch<AppDispatch>();
 
@@ -42,6 +46,14 @@ const PostsListItem: FC<PostsListItemProps> = ({
 
     dispatch(fetchRemovePost(postID));
   };
+
+  const createDate = {
+    date: new Date(createdAt).toLocaleDateString(),
+    time: new Date(createdAt).toLocaleTimeString(),
+  };
+
+  // console.log(new Date(createdAt).toLocaleTimeString());
+  // console.log(updatedAt);
 
   return (
     <div className="post">
@@ -79,13 +91,21 @@ const PostsListItem: FC<PostsListItemProps> = ({
           ))}
         </div>
         <div className="post__info">
-          <div className="post__info-block">
-            <AiOutlineEye className="post__icon" />
-            {views}
+          <div className="post__info-icons">
+            <div className="post__info-icons-block">
+              <AiOutlineEye className="post__icon" />
+              {views}
+            </div>
+            <div className="post__info-icons-block">
+              <FaComments className="post__icon" />
+              {comments}
+            </div>
           </div>
-          <div className="post__info-block">
-            <FaComments className="post__icon" />
-            {comments}
+          <div className="post__info-dates">
+            <div className="post__info-date-create">
+              <span className="date">{createDate.date}</span>
+              <span className="time">{createDate.time}</span>
+            </div>
           </div>
         </div>
       </div>

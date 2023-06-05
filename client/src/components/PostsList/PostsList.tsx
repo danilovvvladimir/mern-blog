@@ -27,6 +27,8 @@ const PostsList: FC = () => {
           userID={item.userID}
           username={item.username}
           postID={item._id}
+          createdAt={item.createdAt}
+          updatedAt={item.updatedAt}
           isEditable={user && user._id === item.userID}
         />
       ))}

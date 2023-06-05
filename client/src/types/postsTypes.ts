@@ -9,11 +9,11 @@ export interface IRemovePostReturn {
 export interface IPost {
   _id: string;
   createdAt: string;
+  updatedAt: string;
   imageURL: string;
   tags: string[];
   title: string;
   text: string;
-  updatedAt: string;
   userID: string;
   username: string;
   views: number;

@@ -27,7 +27,12 @@
   }
   &__info {
     display: flex;
-    gap: 30px;
+    justify-content: space-between;
+    align-items: center;
+  }
+  &__info-icons {
+    // display: flex;
+    // gap: 30px;
     &-block {
       display: flex;
       gap: 10px;
@@ -91,5 +96,10 @@
   }
   &__edit-icon {
     color: #fff;
+  }
+  &__info-date-create {
+    display: flex;
+    flex-direction: column;
+    text-align: right;
   }
 }
