@@ -13,6 +13,8 @@ const PostsList: FC = () => {
   const { items, status } = useSelector((state: RootState) => state.posts.posts);
   const user = useSelector((state: RootState) => state.auth.user);
 
+  // Реализовать status & loading постов скелетонов
+
   return (
     <div className="posts home__posts">
       {items.map((item) => (

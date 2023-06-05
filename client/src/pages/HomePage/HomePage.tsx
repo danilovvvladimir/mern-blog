@@ -1,17 +1,18 @@
 // ==> Libs imports <===
 import { FC, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+// ==> Components imports <===
 import AsideFilter from "../../components/AsideFilter/AsideFilter";
 import PostsList from "../../components/PostsList/PostsList";
-import { fetchLatestTags, fetchPosts } from "../../redux/slices/postsSlice";
-import { AppDispatch, RootState } from "../../redux/store";
-// ==> Components imports <===
 
 // ==> Other imports <===
+import { AppDispatch } from "../../redux/store";
+import { fetchLatestTags, fetchPosts } from "../../redux/slices/postsSlice";
 import "./HomePage.scss";
 
 const HomePage: FC = () => {
   const dispatch = useDispatch<AppDispatch>();
+
   useEffect(() => {
     dispatch(fetchPosts());
     dispatch(fetchLatestTags());

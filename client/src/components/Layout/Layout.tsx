@@ -1,8 +1,8 @@
 // ==> Libs imports <===
 import { FC } from "react";
 import { Outlet } from "react-router-dom";
-import Menu from "../Menu/Menu";
 // ==> Components imports <===
+import Menu from "../Menu/Menu";
 
 // ==> Other imports <===
 import "./Layout.scss";

@@ -13,12 +13,12 @@ import AboutPage from "./pages/AboutPage/AboutPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import RegisterPage from "./pages/RegisterPage/RegisterPage";
 import FullPostPage from "./pages/FullPostPage/FullPostPage";
+import AddPostPage from "./pages/AddPostPage/AddPostPage";
 
 // ==> Other imports <===
 import { getMe } from "./redux/slices/authSlice";
 import { AppDispatch } from "./redux/store";
 import "react-toastify/dist/ReactToastify.css";
-import AddPostPage from "./pages/AddPostPage/AddPostPage";
 
 const App: FC = () => {
   const dispatch = useDispatch<AppDispatch>();

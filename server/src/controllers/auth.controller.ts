@@ -46,7 +46,8 @@ export const register = async (req: Request, res: Response) => {
     });
   } catch (error) {
     const err = error as Error;
-    console.log(err.message);
+    console.log(`register error: ${err.message}`);
+
     res.status(500).json({ message: "Ошибка при регистрации." });
   }
 };
@@ -86,7 +87,9 @@ export const login = async (req: Request, res: Response) => {
       message: "Вы вошли в систему!",
     });
   } catch (error) {
-    console.log(error);
+    const err = error as Error;
+    console.log(`login error: ${err.message}`);
+
     res.status(400).json({
       message: "Не удалось авторизоваться",
     });
@@ -117,7 +120,9 @@ export const getMe = async (req: Request, res: Response) => {
     res.json({ user, token });
     console.log({ user, token });
   } catch (error) {
-    console.log(error);
+    const err = error as Error;
+    console.log(`getMe error: ${err.message}`);
+
     res.status(500).json({
       message: "Нет доступа",
     });
@@ -138,7 +143,9 @@ export const getUser = async (req: Request, res: Response) => {
     }
     res.json(user);
   } catch (error) {
-    console.log(error);
+    const err = error as Error;
+    console.log(`getUser error: ${err.message}`);
+
     res.status(500).json({
       message: "Нет доступа",
     });

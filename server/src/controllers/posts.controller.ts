@@ -1,13 +1,7 @@
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
 import { Response, Request } from "express";
 
 import PostSchema from "../models/postModel.js";
 import UserSchema from "../models/userModel.js";
-import mongoose from "mongoose";
-
-// import path, { dirname } from "path";
-// import { fileURLToPath } from "url";
 
 // Create Post
 
@@ -32,17 +26,15 @@ export const createPost = async (req: Request, res: Response) => {
 
     const post = await doc.save();
 
-    await UserSchema.findByIdAndUpdate(
-      userID,
-      // Что будем делать
-      {
-        $push: { posts: post },
-      }
-    );
+    await UserSchema.findByIdAndUpdate(userID, {
+      $push: { posts: post },
+    });
 
     res.json(post);
   } catch (error) {
-    console.log("Create Post error: ", error);
+    const err = error as Error;
+    console.log(`CreatePost error: ${err.message}`);
+
     res.status(500).json({
       message: "Не удалось создать статью",
     });
@@ -63,7 +55,9 @@ export const getLastTags = async (req: Request, res: Response) => {
 
     res.json(uniqueTags);
   } catch (error) {
-    console.log("Get Last Tags error: ", error);
+    const err = error as Error;
+    console.log(`GetLastTags error: ${err.message}`);
+
     res.status(500).json({
       message: "Не удалось получить тэги",
     });
@@ -78,11 +72,9 @@ export const getOnePost = async (req: Request, res: Response) => {
       {
         _id: postId,
       },
-      // Что будем делать
       {
         $inc: { views: 1 },
       },
-      // Когда будем получать статью? после изменения
       {
         returnDocument: "after",
       }
@@ -97,13 +89,16 @@ export const getOnePost = async (req: Request, res: Response) => {
         res.json(doc);
       })
       .catch((error) => {
-        console.log(error);
+        const err = error as Error;
+        console.log(`getOnePost error:${err.message}`);
+
         return res.status(500).json({
           message: "Не удалось получить статью",
         });
       });
   } catch (error) {
-    console.log("Get One Post error: ", error);
+    const err = error as Error;
+    console.log(`getOnePost error: ${err.message}`);
     res.status(500).json({
       message: "Не удалось получить статьи",
     });
@@ -116,7 +111,9 @@ export const getAllPosts = async (req: Request, res: Response) => {
 
     res.json(posts);
   } catch (error) {
-    console.log("Get All Posts error: ", error);
+    const err = error as Error;
+    console.log(`getAllPosts error: ${err.message}`);
+
     res.status(500).json({
       message: "Не удалось получить статьи",
     });
@@ -151,15 +148,13 @@ export const removePost = async (req: Request, res: Response) => {
         });
       });
 
-    await UserSchema.findByIdAndUpdate(
-      userID,
-      // Что будем делать
-      {
-        $pull: { posts: postId },
-      }
-    );
+    await UserSchema.findByIdAndUpdate(userID, {
+      $pull: { posts: postId },
+    });
   } catch (error) {
-    console.log("Remove Post error: ", error);
+    const err = error as Error;
+    console.log(`removePost error: ${err.message}`);
+
     res.status(500).json({
       message: "Не удалось получить статьи",
     });
@@ -187,19 +182,17 @@ export const updatePost = async (req: Request, res: Response) => {
       }
     );
 
-    await UserSchema.findByIdAndUpdate(
-      userID,
-      // Что будем делать
-      {
-        $pull: { posts: postId },
-      }
-    );
+    await UserSchema.findByIdAndUpdate(userID, {
+      $pull: { posts: postId },
+    });
 
     res.json({
       success: true,
     });
   } catch (error) {
-    console.log("Update Post error: ", error);
+    const err = error as Error;
+    console.log(`updatePost error: ${err.message}`);
+
     res.status(500).json({
       message: "Не удалось обновить статью",
     });

@@ -5,12 +5,12 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { Navigate, useNavigate } from "react-router-dom";
 // ==> Components imports <===
 import Button from "../../components/UI/Button/Button";
+import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 
 // ==> Other imports <===
 import axios from "../../utils/axios";
 import { checkIsAuth } from "../../redux/slices/authSlice";
 import "./AddPostPage.scss";
-import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 
 interface ISubmitFields {
   title: string;
@@ -34,17 +34,17 @@ const AddPostPage: FC = () => {
 
   const onSubmit: SubmitHandler<ISubmitFields> = async ({ title, text, tags }) => {
     const tagsArray = tags.split(",").map((item) => item.trim());
-    //console.log(title, text, tagsArray);
 
     try {
       const fields = { title, text, tags: tagsArray };
       const { data } = await axios.post("/posts", fields);
       const postID = data._id;
-
       reset();
+
       navigate(`/posts/${postID}`);
     } catch (error) {
-      console.log(error);
+      const err = error as Error;
+      console.log(`AddPostPage-onSubmit error: ${err.message}`);
     }
   };
 

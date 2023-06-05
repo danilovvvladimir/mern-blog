@@ -2,15 +2,18 @@
 import { FC } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { RootState } from "../../redux/store";
 // ==> Components imports <===
 import Button from "../UI/Button/Button";
 
 // ==> Other imports <===
+import { RootState } from "../../redux/store";
 import "./AsideFilter.scss";
 
 const AsideFilter: FC = () => {
   const { items, status } = useSelector((state: RootState) => state.posts.tags);
+
+  // Реализовать status & loading тегов скелетонов
+
   return (
     <div className="aside-filter">
       <div className="aside-filter__tags">

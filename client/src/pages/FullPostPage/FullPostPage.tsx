@@ -4,8 +4,8 @@ import { Link, useParams } from "react-router-dom";
 // ==> Components imports <===
 
 // ==> Other imports <===
-import "./FullPostPage.scss";
 import axios from "../../utils/axios";
+import "./FullPostPage.scss";
 
 interface FullPostPageProps {}
 
@@ -20,7 +20,7 @@ interface IPostInfo {
   text: string;
 }
 
-const intitialPostInfo = {
+const intitialPostInfo: IPostInfo = {
   title: "",
   imageURL: "",
   views: 0,
@@ -37,14 +37,17 @@ const FullPostPage: FC<FullPostPageProps> = () => {
   console.log(postID);
 
   const fetchOnePost = async () => {
-    const response = await axios.get(`/posts/${postID}`);
-    console.log(response.data);
-    const data = await response.data;
-
-    setPostInfo(data);
-    return response.data;
-    // console.log({ imageURL, title, views, tags, username, text, userID });
+    try {
+      const response = await axios.get(`/posts/${postID}`);
+      const data = await response.data;
+      setPostInfo(data);
+      return response.data;
+    } catch (error) {
+      const err = error as Error;
+      console.log(`FullPostPage-fetchOnePost error: ${err.message}`);
+    }
   };
+
   useEffect(() => {
     fetchOnePost();
   }, []);

@@ -27,20 +27,23 @@ const RegisterPage: FC = () => {
   } = useForm<ILoginField>({ mode: "onSubmit" });
 
   const onSubmit: SubmitHandler<ILoginField> = async ({ username, password }) => {
-    const result = await dispatch(registerUser({ username, password }));
+    try {
+      const result = await dispatch(registerUser({ username, password }));
 
-    if (registerUser.fulfilled.match(result)) {
-      const data = result.payload;
-      if ("token" in data) {
-        window.localStorage.setItem("token", data.token);
+      if (registerUser.fulfilled.match(result)) {
+        const data = result.payload;
+        if ("token" in data) {
+          window.localStorage.setItem("token", data.token);
+        }
+        createNotify("Вы успешно зарегистрировались", notifyMode.SUCCESS);
+      } else {
+        createNotify("Ошибка при регистрации", notifyMode.ERROR);
       }
-      // Добавить в toastify success
-      createNotify("Вы успешно зарегистрировались", notifyMode.SUCCESS);
-    } else {
-      // Добавить в toastify
-      createNotify("Ошибка при регистрации", notifyMode.ERROR);
+      reset();
+    } catch (error) {
+      const err = error as Error;
+      console.log(`RegisterPage-onSubmit error: ${err.message}`);
     }
-    reset();
   };
 
   if (isAuth) {

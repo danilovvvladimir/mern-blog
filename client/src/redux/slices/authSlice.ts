@@ -1,14 +1,12 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { AxiosError } from "axios";
-import { authFetchStatus, ILoginField, ReturnedValues } from "../../types/authTypes";
+import {
+  authFetchStatus,
+  IAuthSliceState,
+  ILoginField,
+  ReturnedValues,
+} from "../../types/authTypes";
 import axios from "../../utils/axios";
 import { RootState } from "../store";
-
-interface IAuthSliceState {
-  user: any;
-  token: string | null;
-  status: authFetchStatus;
-}
 
 const initialState: IAuthSliceState = {
   user: null,
@@ -59,7 +57,6 @@ export const getMe = createAsyncThunk("posts/getMe", async (params, { rejectWith
     return data;
   } catch (error) {
     const err = error as Error;
-    //console.log("getMe error:", err);
     return rejectWithValue(err.message);
   }
 });
@@ -74,6 +71,7 @@ const authSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
+    // Register User
     builder.addCase(registerUser.pending, (state) => {
       state.status = authFetchStatus.LOADING;
       state.token = null;
@@ -91,6 +89,8 @@ const authSlice = createSlice({
       state.token = null;
       state.user = null;
     });
+
+    // Login User
     builder.addCase(loginUser.pending, (state) => {
       state.status = authFetchStatus.LOADING;
       state.token = null;
@@ -108,6 +108,8 @@ const authSlice = createSlice({
       state.token = null;
       state.user = null;
     });
+
+    // Get Me
     builder.addCase(getMe.pending, (state) => {
       state.status = authFetchStatus.LOADING;
       state.token = null;

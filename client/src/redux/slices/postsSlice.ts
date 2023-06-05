@@ -1,13 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { authFetchStatus } from "../../types/authTypes";
+import { IPostsSliceState, IRemovePostProp, IRemovePostReturn } from "../../types/postsTypes";
 
 import axios from "../../utils/axios";
-
-type IRemovePostProp = string;
-
-interface IRemovePostReturn {
-  message: string;
-}
 
 export const fetchPosts = createAsyncThunk("posts/fetchPosts", async () => {
   const { data } = await axios.get("/posts");
@@ -24,29 +19,6 @@ export const fetchRemovePost = createAsyncThunk<IRemovePostReturn, IRemovePostPr
   async (id) => await axios.delete(`/posts/${id}`)
 );
 
-interface IPost {
-  _id: string;
-  createdAt: string;
-  imageURL: string;
-  tags: string[];
-  title: string;
-  text: string;
-  updatedAt: string;
-  userID: string;
-  username: string;
-  views: number;
-}
-
-interface IPostsSliceState {
-  posts: {
-    items: IPost[];
-    status: authFetchStatus;
-  };
-  tags: {
-    items: string[];
-    status: authFetchStatus;
-  };
-}
 const initialState: IPostsSliceState = {
   posts: {
     items: [],
@@ -63,6 +35,7 @@ const postsSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
+    // Get Posts
     builder.addCase(fetchPosts.pending, (state) => {
       state.posts.status = authFetchStatus.LOADING;
       state.posts.items = [];
@@ -77,6 +50,8 @@ const postsSlice = createSlice({
       state.posts.status = authFetchStatus.FAILURE;
       state.posts.items = [];
     });
+
+    // Get Tags
     builder.addCase(fetchLatestTags.pending, (state) => {
       state.tags.status = authFetchStatus.LOADING;
       state.tags.items = [];

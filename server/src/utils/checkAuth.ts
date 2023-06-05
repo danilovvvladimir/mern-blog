@@ -1,4 +1,4 @@
-import jwt, { JwtPayload } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 import { Response, Request, NextFunction } from "express";
 
 export const checkAuth = (req: Request, res: Response, next: NextFunction) => {
@@ -8,11 +8,12 @@ export const checkAuth = (req: Request, res: Response, next: NextFunction) => {
       // Decoding user
       const decoded = jwt.verify(token, process.env.JWT_SECRET as string);
 
-      //req.userId = decoded.id;
       res.locals.jwt = decoded;
       next();
     } catch (error) {
-      console.log(error);
+      const err = error as Error;
+      console.log(`checkAuth error:${err.message}`);
+
       return res.status(403).json({
         message: "Нет доступа",
       });

@@ -2,11 +2,11 @@
 import { FC } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
-import { checkIsAuth, logout } from "../../redux/slices/authSlice";
 // ==> Components imports <===
 import Button from "../UI/Button/Button";
 
 // ==> Other imports <===
+import { checkIsAuth, logout } from "../../redux/slices/authSlice";
 import "./Menu.scss";
 
 type ActiveProps = {

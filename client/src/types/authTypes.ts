@@ -13,3 +13,9 @@ export interface ReturnedValues {
   token: string;
   user: any;
 }
+
+export interface IAuthSliceState {
+  user: any;
+  token: string | null;
+  status: authFetchStatus;
+}

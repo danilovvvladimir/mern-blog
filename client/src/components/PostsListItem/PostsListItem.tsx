@@ -9,8 +9,8 @@ import Button from "../UI/Button/Button";
 
 // ==> Other imports <===
 import { AppDispatch } from "../../redux/store";
-import "./PostsListItem.scss";
 import { fetchRemovePost } from "../../redux/slices/postsSlice";
+import "./PostsListItem.scss";
 
 interface PostsListItemProps {
   title: string;

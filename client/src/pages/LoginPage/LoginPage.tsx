@@ -3,10 +3,10 @@ import { FC } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Navigate } from "react-router-dom";
-import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 
 // ==> Components imports <===
 import Button from "../../components/UI/Button/Button";
+import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 
 // ==> Other imports <===
 import { checkIsAuth, loginUser } from "../../redux/slices/authSlice";
@@ -28,18 +28,23 @@ const LoginPage: FC = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   const onSubmit: SubmitHandler<ILoginField> = async ({ username, password }) => {
-    const result = await dispatch(loginUser({ username, password }));
+    try {
+      const result = await dispatch(loginUser({ username, password }));
 
-    if (loginUser.fulfilled.match(result)) {
-      const data = result.payload;
-      if ("token" in data) {
-        window.localStorage.setItem("token", data.token);
+      if (loginUser.fulfilled.match(result)) {
+        const data = result.payload;
+        if ("token" in data) {
+          window.localStorage.setItem("token", data.token);
+        }
+        createNotify("Вы успешно авторизовались", notifyMode.SUCCESS);
+      } else {
+        createNotify("Ошибка при авторизации", notifyMode.ERROR);
       }
-      createNotify("Вы успешно авторизовались", notifyMode.SUCCESS);
-    } else {
-      createNotify("Ошибка при авторизации", notifyMode.ERROR);
+      reset();
+    } catch (error) {
+      const err = error as Error;
+      console.log(`LoginPage-onSubmit error: ${err.message}`);
     }
-    reset();
   };
 
   if (isAuth) {
