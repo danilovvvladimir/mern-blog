@@ -22,13 +22,20 @@ const PostForm: FC<PostFormProps> = ({ onSubmit, postID }) => {
     formState: { errors },
   } = useForm<ISubmitFields>({
     defaultValues: async () => {
-      const response = await axios.get(`/posts/${postID}`);
-      const data: IResponseFields = response.data;
+      if (postID) {
+        const response = await axios.get(`/posts/${postID}`);
+        const data: IResponseFields = response.data;
 
+        return {
+          tags: data.tags.join(", "),
+          text: data.text,
+          title: data.title,
+        };
+      }
       return {
-        tags: data.tags.join(", "),
-        text: data.text,
-        title: data.title,
+        tags: "",
+        text: "",
+        title: "",
       };
     },
   });

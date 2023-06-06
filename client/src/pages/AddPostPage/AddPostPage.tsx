@@ -11,14 +11,16 @@ import axios from "../../utils/axios";
 import { checkIsAuth } from "../../redux/slices/authSlice";
 import { ISubmitFields } from "../../types/formTypes";
 import "./AddPostPage.scss";
+import { createNotify, notifyMode } from "../../utils/createNotify";
 
 const AddPostPage: FC = () => {
   const isAuth = useSelector(checkIsAuth);
   const navigate = useNavigate();
 
-  if (!isAuth) {
-    return <Navigate to="/" />;
-  }
+  // if (!isAuth) {
+  //   createNotify("Посты можно создавать только авторизированным пользователям", notifyMode.ERROR);
+  //   return <Navigate to="/" />;
+  // }
 
   const onSubmit: SubmitHandler<ISubmitFields> = async ({ title, text, tags }) => {
     const tagsArray = tags.split(",").map((item) => item.trim());

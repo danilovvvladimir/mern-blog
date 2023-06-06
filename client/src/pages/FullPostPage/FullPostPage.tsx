@@ -5,21 +5,23 @@ import { Link, useParams } from "react-router-dom";
 
 // ==> Other imports <===
 import axios from "../../utils/axios";
+
 import { intitialPostInfo, IPostInfo } from "../../types/postsTypes";
+import { authFetchStatus } from "../../types/authTypes";
 import "./FullPostPage.scss";
+import Spinner from "../../components/UI/Spinner/Spinner";
 
 interface FullPostPageProps {}
 
 const FullPostPage: FC<FullPostPageProps> = () => {
   const [postInfo, setPostInfo] = useState<IPostInfo>(intitialPostInfo);
   const postID = useParams().id;
-  console.log(postID);
 
   const fetchOnePost = async () => {
     try {
       const response = await axios.get(`/posts/${postID}`);
       const data = await response.data;
-      setPostInfo(data);
+      setPostInfo({ ...data, status: authFetchStatus.SUCCESS });
       return response.data;
     } catch (error) {
       const err = error as Error;
@@ -30,6 +32,14 @@ const FullPostPage: FC<FullPostPageProps> = () => {
   useEffect(() => {
     fetchOnePost();
   }, []);
+
+  if (postInfo.status === authFetchStatus.LOADING) {
+    return (
+      <div className="container">
+        <Spinner />
+      </div>
+    );
+  }
 
   return (
     <section className="fullpost">

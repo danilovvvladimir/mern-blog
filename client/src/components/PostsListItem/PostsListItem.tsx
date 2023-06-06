@@ -42,8 +42,6 @@ const PostsListItem: FC<PostsListItemProps> = ({
   const dispatch = useDispatch<AppDispatch>();
 
   const onRemovePost = () => {
-    console.log(postID);
-
     dispatch(fetchRemovePost(postID));
   };
 

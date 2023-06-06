@@ -16,7 +16,6 @@ import "./RegisterPage.scss";
 
 const RegisterPage: FC = () => {
   const isAuth = useSelector(checkIsAuth);
-  console.log("Register isAuth:", isAuth);
 
   const dispatch = useDispatch<AppDispatch>();
   const {

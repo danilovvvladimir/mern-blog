@@ -52,7 +52,6 @@ export const loginUser = createAsyncThunk<ReturnedValues, ILoginField>(
 export const getMe = createAsyncThunk("posts/getMe", async (params, { rejectWithValue }) => {
   try {
     const { data } = await axios.get("/auth/me");
-    console.log("getMe data: ", data);
 
     return data;
   } catch (error) {

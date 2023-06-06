@@ -12,18 +12,18 @@ import "./EditPostPage.scss";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { createNotify, notifyMode } from "../../utils/createNotify";
+import Spinner from "../../components/UI/Spinner/Spinner";
+import { authFetchStatus } from "../../types/authTypes";
 
 interface EditPostPageProps {}
 
 const EditPostPage: FC<EditPostPageProps> = () => {
-  const user = useSelector((state: RootState) => state.auth.user);
+  const { user, status } = useSelector((state: RootState) => state.auth);
 
   const navigate = useNavigate();
   const postID = useParams().id;
 
   const onSubmit: SubmitHandler<ISubmitFields> = async ({ title, text, tags }) => {
-    console.log({ title, text, tags });
-
     const tagsArray = tags.split(",").map((item) => item.trim());
 
     try {
@@ -43,8 +43,6 @@ const EditPostPage: FC<EditPostPageProps> = () => {
         const response = await axios.get(`/posts/${postID}`);
         const authorID = await response.data.userID;
 
-        console.log("got it", authorID);
-
         return authorID === user._id;
       } catch (error) {
         const err = error as Error;
@@ -63,6 +61,19 @@ const EditPostPage: FC<EditPostPageProps> = () => {
       }
     });
   }, []);
+
+  if (status === authFetchStatus.LOADING) {
+    return (
+      <div className="container">
+        <Spinner />
+      </div>
+    );
+  }
+
+  if (status === authFetchStatus.FAILURE) {
+    createNotify("Вы не являетесь автором этого поста, чтобы его редактировать", notifyMode.ERROR);
+    return <Navigate to="/" />;
+  }
 
   return (
     <section className="add-post">

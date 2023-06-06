@@ -39,6 +39,7 @@ export interface IPostInfo {
   userID: string;
   postID: string;
   text: string;
+  status: authFetchStatus;
 }
 
 export const intitialPostInfo: IPostInfo = {
@@ -50,4 +51,5 @@ export const intitialPostInfo: IPostInfo = {
   userID: "",
   postID: "",
   text: "",
+  status: authFetchStatus.LOADING,
 };
