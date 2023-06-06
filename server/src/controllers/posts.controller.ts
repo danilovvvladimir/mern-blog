@@ -62,6 +62,8 @@ export const getLastTags = async (req: Request, res: Response) => {
 };
 
 export const getOnePost = async (req: Request, res: Response) => {
+  console.log("Get One Post");
+
   try {
     const postId = req.params.id;
 
@@ -178,10 +180,6 @@ export const updatePost = async (req: Request, res: Response) => {
         tags: req.body.tags,
       }
     );
-
-    await UserSchema.findByIdAndUpdate(userID, {
-      $pull: { posts: postId },
-    });
 
     res.json({
       success: true,

@@ -1,7 +1,7 @@
 // ==> Libs imports <===
 import { FC } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, redirect, useNavigate } from "react-router-dom";
 // ==> Components imports <===
 import Button from "../UI/Button/Button";
 
@@ -18,6 +18,7 @@ type ActiveProps = {
 const Menu: FC = () => {
   const isAuth = useSelector(checkIsAuth);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const user = useSelector((state: RootState) => state.auth.user);
 
