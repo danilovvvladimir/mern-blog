@@ -55,7 +55,7 @@ const ProfilePage: FC = () => {
 
       getUserPosts();
     } catch (error) {}
-  }, []);
+  }, [profileUserID]);
 
   if (status === authFetchStatus.LOADING) {
     return (
