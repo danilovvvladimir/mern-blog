@@ -41,9 +41,19 @@ const EditPostPage: FC<EditPostPageProps> = () => {
     const isAuthor = async () => {
       try {
         const response = await axios.get(`/posts/${postID}`);
-        const authorID = await response.data.userID;
 
-        return authorID === user._id;
+        const authorID = await response.data.userID;
+        if (user) {
+          return authorID === user._id;
+        }
+
+        // !!!!!!!
+        // !!!!!!!
+        // !!!!!!!
+        // !!!!!!!
+        // !!!!!!!
+        // !!!!!!!
+        return false;
       } catch (error) {
         const err = error as Error;
         console.log(`FullPostPage-fetchOnePost error: ${err.message}`);

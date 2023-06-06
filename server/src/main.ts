@@ -5,6 +5,7 @@ import cors from "cors";
 
 import userRouter from "./routes/authRoutes.js";
 import postsRouter from "./routes/postsRoutes.js";
+import usersRouter from "./routes/usersRoutes.js";
 
 dotenv.config();
 
@@ -38,6 +39,7 @@ app.use("/uploads", express.static("uploads"));
 // Routes
 app.use("/auth", userRouter);
 app.use("/posts", postsRouter);
+app.use("/users", usersRouter);
 
 app.get("/", (req, res) => {
   return res.json({ success: true });

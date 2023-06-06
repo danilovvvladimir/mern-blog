@@ -8,6 +8,8 @@ import Button from "../UI/Button/Button";
 // ==> Other imports <===
 import { checkIsAuth, logout } from "../../redux/slices/authSlice";
 import "./Menu.scss";
+import { createNotify, notifyMode } from "../../utils/createNotify";
+import { RootState } from "../../redux/store";
 
 type ActiveProps = {
   isActive: boolean;
@@ -17,11 +19,14 @@ const Menu: FC = () => {
   const isAuth = useSelector(checkIsAuth);
   const dispatch = useDispatch();
 
+  const user = useSelector((state: RootState) => state.auth.user);
+
   const setActive = ({ isActive }: ActiveProps): string => {
     return isActive ? "menu__list-item-link menu__list-item-link--active" : "menu__list-item-link";
   };
 
   const handleLogout = () => {
+    createNotify("Вы успешно вышли из аккаунта", notifyMode.SUCCESS);
     dispatch(logout());
     window.localStorage.removeItem("token");
   };
@@ -42,7 +47,7 @@ const Menu: FC = () => {
               </li>
               {isAuth && (
                 <li className="menu__list-item">
-                  <NavLink to="/profile" className={setActive}>
+                  <NavLink to={`/profile/${user?._id}`} className={setActive}>
                     Мой профиль
                   </NavLink>
                 </li>

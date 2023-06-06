@@ -13,9 +13,24 @@ export interface ReturnedValues {
   token: string;
   user: any;
 }
+// {
+//     _id: "",
+//     createdAt: "",
+//     posts: [],
+//     updatedAt: "",
+//     username:
+//   }
+
+interface IUser {
+  createdAt: string;
+  updatedAt: string;
+  username: string;
+  _id: string;
+  posts: string[];
+}
 
 export interface IAuthSliceState {
-  user: any;
+  user: IUser | null;
   token: string | null;
   status: authFetchStatus;
 }

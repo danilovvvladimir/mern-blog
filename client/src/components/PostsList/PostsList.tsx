@@ -39,7 +39,7 @@ const PostsList: FC = () => {
           postID={item._id}
           createdAt={item.createdAt}
           updatedAt={item.updatedAt}
-          isEditable={user && user._id === item.userID}
+          isEditable={user !== null && user._id === item.userID}
         />
       ))}
     </div>

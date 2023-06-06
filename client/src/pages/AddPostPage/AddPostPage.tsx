@@ -17,10 +17,10 @@ const AddPostPage: FC = () => {
   const isAuth = useSelector(checkIsAuth);
   const navigate = useNavigate();
 
-  // if (!isAuth) {
-  //   createNotify("Посты можно создавать только авторизированным пользователям", notifyMode.ERROR);
-  //   return <Navigate to="/" />;
-  // }
+  if (!isAuth) {
+    createNotify("Посты можно создавать только авторизированным пользователям", notifyMode.ERROR);
+    return <Navigate to="/" />;
+  }
 
   const onSubmit: SubmitHandler<ISubmitFields> = async ({ title, text, tags }) => {
     const tagsArray = tags.split(",").map((item) => item.trim());
